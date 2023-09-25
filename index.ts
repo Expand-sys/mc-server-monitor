@@ -6,10 +6,12 @@ let serverstatus = 0
 runevery15seconds(1)
 function runevery15seconds(i) {
     setTimeout(() => {
-        
         Gamedig.query({
             type: 'minecraft',
-            host: 'mc.emre-personal.net'
+            host: 'mc.emre-personal.net',
+            port: 25565,
+            debug: true,
+            socketTimeout: 3000
         }).then((state) => {
             console.log(state);
             if(serverstatus == 0){
@@ -31,6 +33,7 @@ function runevery15seconds(i) {
         
         }).catch((error: any) => {
             console.log("Server is offline");
+            console.log(error)
             if( serverstatus == 1){
                 var params = {
                     username: "MC-monitor",
@@ -51,6 +54,6 @@ function runevery15seconds(i) {
         
         });
         runevery15seconds(++i);
-    }, 15000)
+    }, 5000)
 }
 
